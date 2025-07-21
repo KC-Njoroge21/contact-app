@@ -5,10 +5,23 @@ import { MdOutlineMail } from "react-icons/md";
 import { FaMale } from "react-icons/fa";
 import { FaFemale } from "react-icons/fa";
 import Favorite from "./Favorite";
+import Delete from "./Delete";
 
 
 const Major = () => {
   const [contactList, setContactList] = React.useState(contact);
+
+  function deleteContact(id) {
+    setContactList((prevState) => {
+      return (
+        prevState.filter((item) => {
+          return (
+            item.id !== id
+          )
+        })
+      )
+    })
+  }
 
   function toggleFavorite(id) {
     setContactList((prevState) => {
@@ -50,7 +63,12 @@ const Major = () => {
           </h2>
         </div>
 
-        <Favorite key={item.id} isFavorite={item.isFavorite} id={item.id} toggle={toggleFavorite} />
+        <div className="flex justify-between">
+          <Favorite key={item.id} isFavorite={item.isFavorite} id={item.id} toggle={toggleFavorite} />
+
+          <Delete key={item.id} id={item.id} delete={deleteContact} />
+
+        </div>
 
         
       </div>
